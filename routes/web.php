@@ -1,15 +1,9 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [DashboardController::class, 'index'] );
 
-Route::get('/feed', function () {
-    return view('feed');
-});
-
-Route::get('/profile', function () {
-    return view('profile');
-});
+Route::get('/profile', [ProfileController::class, 'index'] );
