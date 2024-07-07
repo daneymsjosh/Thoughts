@@ -38,6 +38,7 @@
             </div>
         </div>
         <div class="col-6">
+            @include('shared.success-message')
             @include('shared.submit-thought')
             <hr>
             @foreach ($thoughts as $thought)

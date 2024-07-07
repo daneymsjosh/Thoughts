@@ -13,6 +13,6 @@ class ThoughtController extends Controller
             'content' => $request->get('thought-content', ''),
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Thought Created Successfuly!');
     }
 }
