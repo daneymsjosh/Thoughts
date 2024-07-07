@@ -46,6 +46,9 @@
                     @include('shared.thought-card')
                 </div>
             @endforeach
+            <div class="mt-3">
+                {{ $thoughts->links() }}
+            </div>
         </div>
         <div class="col-3">
             <div class="card">

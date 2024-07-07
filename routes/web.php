@@ -7,6 +7,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::post('/thought', [ThoughtController::class, 'store'])->name('thought.create');
+Route::post('/thoughts', [ThoughtController::class, 'store'])->name('thought.store');
 
-Route::get('/profile', [ProfileController::class, 'index']);
+Route::delete('/thoughts/{id}', [ThoughtController::class, 'destroy'])->name('thought.destroy');
