@@ -11,21 +11,47 @@ class ThoughtController extends Controller
     {
         // Validate content
         $request->validate([
-            'thought-content' => 'required|min:5|max:240'
+            'content' => 'required|min:5|max:240'
         ]);
 
         // Create content
         $thought = Thought::create([
-            'content' => $request->get('thought-content', ''),
+            'content' => $request->get('content', ''),
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Thought Created Successfuly!');
     }
 
-    public function destroy($id)
+    public function edit(Thought $thought)
+    {
+        $editing = true;
+
+        return view('thoughts.show', compact('thought', 'editing'));
+    }
+
+    public function update(Request $request, Thought $thought)
+    {
+        // Validate content
+        $request->validate([
+            'content' => 'required|min:5|max:240'
+        ]);
+
+        $thought->content = $request->get('content', '');
+
+        $thought->save();
+
+        return redirect()->route('thoughts.show', $thought->id)->with('success', 'Thought Updated Successfuly!');
+    }
+
+    public function show(Thought $thought)
+    {
+        return view('thoughts.show', compact('thought'));
+    }
+
+    public function destroy(Thought $thought)
     {
         // Delete content
-        Thought::where('id', $id)->firstOrFail()->delete();
+        $thought->delete();
 
         return redirect()->route('dashboard')->with('success', 'Thought Deleted Successfuly!');
     }
