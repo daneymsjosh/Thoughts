@@ -14,6 +14,8 @@ class ThoughtController extends Controller
             'content' => 'required|min:5|max:240'
         ]);
 
+        $validated['user_id'] = auth()->id();
+
         // Create content
         Thought::create($validated);
 
@@ -22,6 +24,10 @@ class ThoughtController extends Controller
 
     public function edit(Thought $thought)
     {
+        if (auth()->id() !== $thought->user_id) {
+            abort(404);
+        }
+
         $editing = true;
 
         return view('thoughts.show', compact('thought', 'editing'));
@@ -29,6 +35,10 @@ class ThoughtController extends Controller
 
     public function update(Request $request, Thought $thought)
     {
+        if (auth()->id() !== $thought->user_id) {
+            abort(404);
+        }
+
         // Validate content
         $validated = $request->validate([
             'content' => 'required|min:5|max:240'
@@ -46,6 +56,10 @@ class ThoughtController extends Controller
 
     public function destroy(Thought $thought)
     {
+        if (auth()->id() !== $thought->user_id) {
+            abort(404);
+        }
+
         // Delete content
         $thought->delete();
 

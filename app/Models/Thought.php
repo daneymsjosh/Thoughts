@@ -10,18 +10,18 @@ class Thought extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'content',
         'likes'
     ];
 
-    // protected $guarded = [
-    //     'id',
-    //     'created_at',
-    //     'updated_at'
-    // ];
-
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
