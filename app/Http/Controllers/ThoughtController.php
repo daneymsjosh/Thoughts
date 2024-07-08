@@ -10,14 +10,12 @@ class ThoughtController extends Controller
     public function store(Request $request)
     {
         // Validate content
-        $request->validate([
+        $validated = $request->validate([
             'content' => 'required|min:5|max:240'
         ]);
 
         // Create content
-        $thought = Thought::create([
-            'content' => $request->get('content', ''),
-        ]);
+        Thought::create($validated);
 
         return redirect()->route('dashboard')->with('success', 'Thought Created Successfuly!');
     }
@@ -32,13 +30,11 @@ class ThoughtController extends Controller
     public function update(Request $request, Thought $thought)
     {
         // Validate content
-        $request->validate([
+        $validated = $request->validate([
             'content' => 'required|min:5|max:240'
         ]);
 
-        $thought->content = $request->get('content', '');
-
-        $thought->save();
+        $thought->update($validated);
 
         return redirect()->route('thoughts.show', $thought->id)->with('success', 'Thought Updated Successfuly!');
     }

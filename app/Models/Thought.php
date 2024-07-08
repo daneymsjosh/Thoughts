@@ -13,4 +13,15 @@ class Thought extends Model
         'content',
         'likes'
     ];
+
+    // protected $guarded = [
+    //     'id',
+    //     'created_at',
+    //     'updated_at'
+    // ];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
