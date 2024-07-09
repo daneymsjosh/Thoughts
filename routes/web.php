@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ThoughtController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Initial code
@@ -50,3 +51,6 @@ Route::post('/login', [AuthController::class, 'authenticate']);
 
 // Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Profile
+Route::resource('users', UserController::class)->only(['show', 'edit', 'update'])->middleware(['auth']);
