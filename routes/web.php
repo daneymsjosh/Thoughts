@@ -53,4 +53,6 @@ Route::post('/login', [AuthController::class, 'authenticate']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Profile
+Route::get('profile', [UserController::class, 'profile'])->name('profile')->middleware(['auth']);
+
 Route::resource('users', UserController::class)->only(['show', 'edit', 'update'])->middleware(['auth']);

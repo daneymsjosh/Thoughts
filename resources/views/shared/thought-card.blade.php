@@ -2,11 +2,11 @@
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img style="width:50px" class="me-2 avatar-sm rounded-circle"
-                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $thought->user->name }}"
+                <img style="width:50px" class="me-2 avatar-sm rounded-circle" src="{{ $thought->user->getImageURL() }}"
                     alt="{{ $thought->user->name }}">
                 <div>
-                    <h5 class="card-title mb-0"><a href="#"> {{ $thought->user->name }} </a></h5>
+                    <h5 class="card-title mb-0"><a href="{{ route('users.show', $thought->user->id) }}">
+                            {{ $thought->user->name }} </a></h5>
                 </div>
             </div>
             <div>
