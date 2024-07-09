@@ -6,22 +6,37 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ThoughtController;
 use Illuminate\Support\Facades\Route;
 
+// Initial code
+// Route::group(['prefix' => 'thoughts/', 'as' => 'thoughts.'], function () {
+
+//     Route::get('{thought}', [ThoughtController::class, 'show'])->name('show');
+
+//     Route::group(['middleware' => ['auth']], function () {
+//         Route::post('', [ThoughtController::class, 'store'])->name('store');
+
+//         Route::get('{thought}/edit', [ThoughtController::class, 'edit'])->name('edit');
+
+//         Route::put('{thought}', [ThoughtController::class, 'update'])->name('update');
+
+//         Route::delete('{thought}', [ThoughtController::class, 'destroy'])->name('destroy');
+
+//         Route::post('{thought}/comments', [CommentController::class, 'store'])->name('comments.store');
+//     });
+// });
+
 // Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 // Thoughts
-Route::post('/thoughts', [ThoughtController::class, 'store'])->name('thoughts.store');
+// These resource creates the routes for the 7 common routes except index create and show with the middleware auth
+Route::resource('thoughts', ThoughtController::class)->except(['index', 'create', 'show'])->middleware(['auth']);
 
-Route::get('/thoughts/{thought}', [ThoughtController::class, 'show'])->name('thoughts.show');
-
-Route::get('/thoughts/{thought}/edit', [ThoughtController::class, 'edit'])->name('thoughts.edit')->middleware('auth');
-
-Route::put('/thoughts/{thought}', [ThoughtController::class, 'update'])->name('thoughts.update')->middleware('auth');
-
-Route::delete('/thoughts/{thought}', [ThoughtController::class, 'destroy'])->name('thoughts.destroy')->middleware('auth');
+// These resource creates the show route
+Route::resource('thoughts', ThoughtController::class)->only(['show']);
 
 // Comments
-Route::post('/thoughts/{thought}/comments', [CommentController::class, 'store'])->name('thoughts.comments.store')->middleware('auth');
+// These resource creates the store route for comments
+Route::resource('thoughts.comments', CommentController::class)->only(['store'])->middleware(['auth']);
 
 // Register
 Route::get('/register', [AuthController::class, 'register'])->name('register');

@@ -9,13 +9,15 @@
             @include('shared.success-message')
             @include('shared.submit-thought')
             <hr>
-            @foreach ($thoughts as $thought)
+            @forelse ($thoughts as $thought)
                 <div class="mt-3">
                     @include('shared.thought-card')
                 </div>
-            @endforeach
+            @empty
+                <p class="text-center mt-4">No Results Found.</p>
+            @endforelse
             <div class="mt-3">
-                {{ $thoughts->links() }}
+                {{ $thoughts->withQueryString()->links() }}
             </div>
         </div>
         <div class="col-3">

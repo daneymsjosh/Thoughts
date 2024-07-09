@@ -10,6 +10,9 @@
                 </div>
             </div>
             <div>
+                @guest
+                    <a href="{{ route('thoughts.show', $thought->id) }}"> View </a>
+                @endguest
                 @auth
                     <form action="{{ route('thoughts.destroy', $thought->id) }}" method="post">
                         @csrf
