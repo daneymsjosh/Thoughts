@@ -49,9 +49,9 @@
             @include('thoughts.shared.like-button')
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                    {{ $thought->created_at }} </span>
+                    {{ $thought->created_at->diffForHumans() }} </span>
             </div>
         </div>
-        @include('shared.comments-box')
+        @include('thoughts.shared.comments-box')
     </div>
 </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FollowerControlor;
 use App\Http\Controllers\ThoughtController;
 use App\Http\Controllers\ThoughtLikeController;
@@ -77,3 +78,6 @@ Route::post('thoughts/{thought}/like', [ThoughtLikeController::class, 'like'])->
 
 // Unlike
 Route::post('thoughts/{thought}/unlike', [ThoughtLikeController::class, 'unlike'])->middleware('auth')->name('thoughts.unlike');
+
+// Feed
+Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
