@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FollowerControlor;
 use App\Http\Controllers\ThoughtController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -56,3 +57,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('profile', [UserController::class, 'profile'])->name('profile')->middleware(['auth']);
 
 Route::resource('users', UserController::class)->only(['show', 'edit', 'update'])->middleware(['auth']);
+
+// Follow
+Route::post('users/{user}/follow', [FollowerControlor::class, 'follow'])->middleware('auth')->name('users.follow');
+
+// Unfollow
+Route::post('users/{user}/unfollow', [FollowerControlor::class, 'unfollow'])->middleware('auth')->name('users.unfollow');
