@@ -29,6 +29,11 @@ use Illuminate\Support\Facades\Route;
 // Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+// Terms
+Route::get('/terms', function () {
+    return view('terms');
+})->name('terms');
+
 // Thoughts
 // These resource creates the routes for the 7 common routes except index create and show with the middleware auth
 Route::resource('thoughts', ThoughtController::class)->except(['index', 'create', 'show'])->middleware(['auth']);

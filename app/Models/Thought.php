@@ -9,6 +9,8 @@ class Thought extends Model
 {
     use HasFactory;
 
+    protected $with = ['user', 'comments.user'];
+
     protected $fillable = [
         'user_id',
         'content',
