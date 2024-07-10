@@ -72,6 +72,16 @@ class User extends Authenticatable
         return $this->followings()->where('user_id', $user->id)->exists();
     }
 
+    public function likes()
+    {
+        return $this->belongsToMany(Thought::class, 'like_thought')->withTimestamps();
+    }
+
+    public function liked(Thought $thought)
+    {
+        return $this->likes()->where('thought_id', $thought->id)->exists();
+    }
+
     public function getImageURL()
     {
         if ($this->image) {

@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FollowerControlor;
 use App\Http\Controllers\ThoughtController;
+use App\Http\Controllers\ThoughtLikeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,10 +62,18 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Profile
 Route::get('profile', [UserController::class, 'profile'])->name('profile')->middleware(['auth']);
 
-Route::resource('users', UserController::class)->only(['show', 'edit', 'update'])->middleware(['auth']);
+Route::resource('users', UserController::class)->only(['edit', 'update'])->middleware(['auth']);
+
+Route::resource('users', UserController::class)->only(['show']);
 
 // Follow
 Route::post('users/{user}/follow', [FollowerControlor::class, 'follow'])->middleware('auth')->name('users.follow');
 
 // Unfollow
 Route::post('users/{user}/unfollow', [FollowerControlor::class, 'unfollow'])->middleware('auth')->name('users.unfollow');
+
+// Like
+Route::post('thoughts/{thought}/like', [ThoughtLikeController::class, 'like'])->middleware('auth')->name('thoughts.like');
+
+// Unlike
+Route::post('thoughts/{thought}/unlike', [ThoughtLikeController::class, 'unlike'])->middleware('auth')->name('thoughts.unlike');

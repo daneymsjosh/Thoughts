@@ -13,8 +13,7 @@ class Thought extends Model
 
     protected $fillable = [
         'user_id',
-        'content',
-        'likes'
+        'content'
     ];
 
     public function comments()
@@ -25,5 +24,10 @@ class Thought extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'like_thought')->withTimestamps();
     }
 }
