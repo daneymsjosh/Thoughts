@@ -8,6 +8,7 @@ use App\Http\Controllers\FollowerControlor;
 use App\Http\Controllers\ThoughtController;
 use App\Http\Controllers\ThoughtLikeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Initial code
@@ -81,3 +82,6 @@ Route::post('thoughts/{thought}/unlike', [ThoughtLikeController::class, 'unlike'
 
 // Feed
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
+
+// Admin
+Route::get('/admin', [AdminDashboardController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.dashboard');
