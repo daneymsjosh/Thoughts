@@ -14,7 +14,7 @@ class ThoughtPolicy
     public function update(User $user, Thought $thought): bool
     {
         // edit/update
-        return ($user->is_admin || $user->id === $thought->user_id);
+        return ($user->is_admin || $user->is($thought->user));
     }
 
     /**
@@ -23,6 +23,6 @@ class ThoughtPolicy
     public function delete(User $user, Thought $thought): bool
     {
         // destroy
-        return ($user->is_admin || $user->id === $thought->user_id);
+        return ($user->is_admin || $user->is($thought->user));
     }
 }
