@@ -48,18 +48,21 @@ Route::resource('thoughts', ThoughtController::class)->only(['show']);
 // These resource creates the store route for comments
 Route::resource('thoughts.comments', CommentController::class)->only(['store'])->middleware(['auth']);
 
-// Register
-Route::get('/register', [AuthController::class, 'register'])->name('register');
+// When a user is logged in, he/she can't view the login or register page
+Route::group(['middleware' => 'guest'], function () {
+    // Register
+    Route::get('/register', [AuthController::class, 'register'])->name('register');
 
-Route::post('/register', [AuthController::class, 'store']);
+    Route::post('/register', [AuthController::class, 'store']);
 
-// Login
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+    // Login
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
 
-Route::post('/login', [AuthController::class, 'authenticate']);
+    Route::post('/login', [AuthController::class, 'authenticate']);
+});
 
 // Logout
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 // Profile
 Route::get('profile', [UserController::class, 'profile'])->name('profile')->middleware(['auth']);

@@ -31,13 +31,14 @@ class AppServiceProvider extends ServiceProvider
             return (bool) $user->is_admin;
         });
 
+        // If I want to use Gates instead of Policies
         // Permission
-        Gate::define('thought.delete', function (User $user, Thought $thought) {
-            return ((bool) $user->is_admin || $user->id === $thought->user_id);
-        });
+        // Gate::define('thought.delete', function (User $user, Thought $thought) {
+        //     return ((bool) $user->is_admin || $user->id === $thought->user_id);
+        // });
 
-        Gate::define('thought.edit', function (User $user, Thought $thought) {
-            return ((bool) $user->is_admin || $user->id === $thought->user_id);
-        });
+        // Gate::define('thought.edit', function (User $user, Thought $thought) {
+        //     return ((bool) $user->is_admin || $user->id === $thought->user_id);
+        // });
     }
 }

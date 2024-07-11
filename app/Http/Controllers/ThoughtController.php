@@ -25,7 +25,7 @@ class ThoughtController extends Controller
 
     public function edit(Thought $thought)
     {
-        Gate::authorize('thought.edit', $thought);
+        Gate::authorize('update', $thought);
 
         $editing = true;
 
@@ -34,7 +34,7 @@ class ThoughtController extends Controller
 
     public function update(Request $request, Thought $thought)
     {
-        Gate::authorize('thought.edit', $thought);
+        Gate::authorize('update', $thought);
 
         // Validate content
         $validated = $request->validate([
@@ -53,7 +53,7 @@ class ThoughtController extends Controller
 
     public function destroy(Thought $thought)
     {
-        Gate::authorize('thought.delete', $thought);
+        Gate::authorize('delete', $thought);
 
         // Delete content
         $thought->delete();
