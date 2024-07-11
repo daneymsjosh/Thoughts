@@ -84,4 +84,4 @@ Route::post('thoughts/{thought}/unlike', [ThoughtLikeController::class, 'unlike'
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
 
 // Admin
-Route::get('/admin', [AdminDashboardController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.dashboard');
+Route::get('/admin', [AdminDashboardController::class, 'index'])->middleware(['auth', 'can:admin'])->name('admin.dashboard');

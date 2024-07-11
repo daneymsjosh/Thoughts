@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Thought;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ThoughtController extends Controller
 {
@@ -24,9 +25,7 @@ class ThoughtController extends Controller
 
     public function edit(Thought $thought)
     {
-        if (auth()->id() !== $thought->user_id) {
-            abort(404);
-        }
+        Gate::authorize('thought.edit', $thought);
 
         $editing = true;
 
@@ -35,9 +34,7 @@ class ThoughtController extends Controller
 
     public function update(Request $request, Thought $thought)
     {
-        if (auth()->id() !== $thought->user_id) {
-            abort(404);
-        }
+        Gate::authorize('thought.edit', $thought);
 
         // Validate content
         $validated = $request->validate([
@@ -56,9 +53,7 @@ class ThoughtController extends Controller
 
     public function destroy(Thought $thought)
     {
-        if (auth()->id() !== $thought->user_id) {
-            abort(404);
-        }
+        Gate::authorize('thought.delete', $thought);
 
         // Delete content
         $thought->delete();

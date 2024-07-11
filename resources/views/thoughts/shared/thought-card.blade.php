@@ -9,18 +9,17 @@
                             {{ $thought->user->name }} </a></h5>
                 </div>
             </div>
-            <div>
-                @guest
-                    <a href="{{ route('thoughts.show', $thought->id) }}"> View </a>
-                @endguest
+            <div class="d-flex">
+                <a href="{{ route('thoughts.show', $thought->id) }}"> View </a>
                 @auth
-                    <form action="{{ route('thoughts.destroy', $thought->id) }}" method="post">
-                        @csrf
-                        @method('delete')
+                    @can('thought.edit', $thought)
                         <a class="mx-2" href="{{ route('thoughts.edit', $thought->id) }}"> Edit </a>
-                        <a href="{{ route('thoughts.show', $thought->id) }}"> View </a>
-                        <button class="ms-1 btn btn-danger btn-sm"> X </button>
-                    </form>
+                        <form action="{{ route('thoughts.destroy', $thought->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class="ms-1 btn btn-danger btn-sm"> X </button>
+                        </form>
+                    @endcan
                 @endauth
             </div>
         </div>
