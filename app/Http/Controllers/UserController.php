@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -27,15 +28,11 @@ class UserController extends Controller
         return view('users.edit', compact('user', 'editing', 'thoughts'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         Gate::authorize('update', $user);
 
-        $validated = $request->validate([
-            'name' => 'required|min:3|max:40',
-            'bio' => 'nullable|min:3|max:255',
-            'image' => 'image'
-        ]);
+        $validated = $request->validated();
 
         if ($request->has('image')) {
             if ($user->image) {

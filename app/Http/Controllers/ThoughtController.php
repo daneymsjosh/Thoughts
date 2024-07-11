@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreThoughtRequest;
+use App\Http\Requests\UpdateThoughtRequest;
 use App\Models\Thought;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class ThoughtController extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreThoughtRequest $request)
     {
         // Validate content
-        $validated = $request->validate([
-            'content' => 'required|min:5|max:240'
-        ]);
+        $validated = $request->validated();
 
         $validated['user_id'] = auth()->id();
 
@@ -32,14 +32,12 @@ class ThoughtController extends Controller
         return view('thoughts.show', compact('thought', 'editing'));
     }
 
-    public function update(Request $request, Thought $thought)
+    public function update(UpdateThoughtRequest $request, Thought $thought)
     {
         Gate::authorize('update', $thought);
 
         // Validate content
-        $validated = $request->validate([
-            'content' => 'required|min:5|max:240'
-        ]);
+        $validated = $request->validated();
 
         $thought->update($validated);
 

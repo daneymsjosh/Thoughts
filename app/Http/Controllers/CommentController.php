@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCommentRequest;
 use App\Models\Comment;
 use App\Models\Thought;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, Thought $thought)
+    public function store(StoreCommentRequest $request, Thought $thought)
     {
-        $comment = new Comment();
-        $comment->thought_id = $thought->id;
-        $comment->user_id = auth()->id();
-        $comment->content = $request->get('content');
-        $comment->save();
+        $validated = $request->validated();
+
+        $validated['user_id'] = auth()->id();
+        $validated['thought_id'] = $thought->id;
+
+        Comment::create($validated);
 
         return redirect()->route('thoughts.show', $thought->id)->with('success', 'Commented Successfuly!');
     }
