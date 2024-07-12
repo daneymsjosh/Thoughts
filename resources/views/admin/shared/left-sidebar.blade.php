@@ -7,9 +7,14 @@
                     <span>Dashboard</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::is('admin.users') ? 'text-white bg-primary rounded' : '' }}"
-                    href="{{ route('admin.users') }}">
+                <a class="nav-link {{ Route::is('admin.users.index') ? 'text-white bg-primary rounded' : '' }}"
+                    href="{{ route('admin.users.index') }}">
                     <span>Users</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::is('admin.thoughts.index') ? 'text-white bg-primary rounded' : '' }}"
+                    href="{{ route('admin.thoughts.index') }}">
+                    <span>Thoughts</span></a>
             </li>
         </ul>
     </div>

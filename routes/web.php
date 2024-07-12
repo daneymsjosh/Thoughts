@@ -13,6 +13,7 @@ use App\Http\Controllers\ThoughtController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ThoughtLikeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\ThoughtController as AdminThoughtController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 // Grouped routes
@@ -101,5 +102,7 @@ Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
 Route::middleware(['auth', 'can:admin'])->prefix('admin/')->as('admin.')->group(function () {
     Route::get('', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('users', [AdminUserController::class, 'index'])->name('users');
+    Route::resource('users', AdminUserController::class)->only(['index']);
+
+    Route::resource('thoughts', AdminThoughtController::class)->only(['index']);
 });
