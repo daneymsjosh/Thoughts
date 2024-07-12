@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Thought;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -16,7 +17,7 @@ class DashboardController extends Controller
         }
 
         return view('dashboard', [
-            'thoughts' => $thoughts->paginate(5)
+            'thoughts' => $thoughts->paginate(5),
         ]);
     }
 }
