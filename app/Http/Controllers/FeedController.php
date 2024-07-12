@@ -17,7 +17,7 @@ class FeedController extends Controller
         $thoughts = Thought::whereIn('user_id', $followingIDs)->latest();
 
         if ($request->has('search')) {
-            $thoughts = $thoughts->where('content', 'like', '%' . $request->get('search', '') . '%');
+            $thoughts = $thoughts->search(request('search', ''));
         }
 
         return view('dashboard', [
