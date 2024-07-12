@@ -1,15 +1,18 @@
 <?php
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeedController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowerControlor;
 use App\Http\Controllers\ThoughtController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ThoughtLikeController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use Illuminate\Support\Facades\Route;
 
 // Initial code
 // Route::group(['prefix' => 'thoughts/', 'as' => 'thoughts.'], function () {
@@ -28,6 +31,14 @@ use Illuminate\Support\Facades\Route;
 //         Route::post('{thought}/comments', [CommentController::class, 'store'])->name('comments.store');
 //     });
 // });
+
+// Change language
+Route::get('lang/{lang}', function ($lang) {
+    app()->setLocale($lang);
+    Session::put('locale', $lang);
+
+    return redirect()->route('dashboard');
+})->name('lang');
 
 // Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

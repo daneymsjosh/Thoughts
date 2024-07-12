@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Thought;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // Uses bootstrap 5 to paginate
         Paginator::useBootstrapFive();
+
+        // Change to filipino language
+        // App::setLocale('fil');
 
         // Role
         Gate::define('admin', function (User $user) {
