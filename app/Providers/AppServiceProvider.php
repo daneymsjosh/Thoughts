@@ -6,6 +6,7 @@ use App\Models\Thought;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -28,8 +29,12 @@ class AppServiceProvider extends ServiceProvider
         // Uses bootstrap 5 to paginate
         Paginator::useBootstrapFive();
 
+        $topUsers = Cache::remember('topUsers', now()->addMinutes(5), function () {
+            return User::withCount('thoughts')->orderBy('thoughts_count', 'DESC')->limit(5)->get();
+        });
+
         // Add a global variable for our views
-        View::share('topUsers', User::withCount('thoughts')->orderBy('thoughts_count', 'DESC')->limit(5)->get());
+        View::share('topUsers', $topUsers);
 
         // Change to filipino language
         // App::setLocale('fil');
