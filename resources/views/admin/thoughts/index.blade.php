@@ -23,7 +23,9 @@
                     @foreach ($thoughts as $thought)
                         <tr>
                             <td>{{ $thought->id }}</td>
-                            <td>{{ $thought->user->name }}</td>
+                            <td>
+                                <a href="{{ route('users.show', $thought->user) }}">{{ $thought->user->name }}</a>
+                            </td>
                             <td>{{ $thought->content }}</td>
                             <td>{{ $thought->created_at->toDateString() }}</td>
                             <td>

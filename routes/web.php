@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -105,4 +106,6 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin/')->as('admin.')->group(
     Route::resource('users', AdminUserController::class)->only(['index']);
 
     Route::resource('thoughts', AdminThoughtController::class)->only(['index']);
+
+    Route::resource('comments', AdminCommentController::class)->only(['index', 'destroy']);
 });
