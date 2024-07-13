@@ -1,7 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-dark border-bottom border-bottom-dark ticky-top bg-body-tertiary"
-    data-bs-theme="dark">
-    <div class="container">
-        <a class="navbar-brand fw-light" href="{{ route('dashboard') }}"><span class="fas fa-brain me-1">
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-light" href="{{ route('dashboard') }}"><span class="fas fa-lightbulb me-2">
             </span>{{ config('app.name') }}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +33,7 @@
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="post">
                             @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                            <button type="submit" class="btn btn-danger btn-sm mt-1">Logout</button>
                         </form>
                     </li>
                 @endauth
