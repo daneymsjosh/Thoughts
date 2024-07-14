@@ -5,15 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreThoughtRequest;
 use App\Http\Requests\UpdateThoughtRequest;
 use App\Models\Thought;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class ThoughtController extends Controller
 {
-    public function store(StoreThoughtRequest $request)
+    public function store(StoreThoughtRequest $request, Thought $thought)
     {
         // Validate content
         $validated = $request->validated();
+
+        if ($request->has('image')) {
+            if ($thought->image) {
+                Storage::disk('public')->delete($thought->image);
+            }
+
+            $imagePath = $request->file('image')->store('thought', 'public');
+            $validated['image'] = $imagePath;
+        }
 
         $validated['user_id'] = auth()->id();
 
@@ -38,6 +49,15 @@ class ThoughtController extends Controller
 
         // Validate content
         $validated = $request->validated();
+
+        if ($request->has('image')) {
+            if ($thought->image) {
+                Storage::disk('public')->delete($thought->image);
+            }
+
+            $imagePath = $request->file('image')->store('thought', 'public');
+            $validated['image'] = $imagePath;
+        }
 
         $thought->update($validated);
 

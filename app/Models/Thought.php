@@ -16,7 +16,8 @@ class Thought extends Model
 
     protected $fillable = [
         'user_id',
-        'content'
+        'content',
+        'image'
     ];
 
     public function comments()
@@ -42,5 +43,13 @@ class Thought extends Model
     public function scopeSearch(Builder $query, $search = '')
     {
         $query->where('content', 'like', '%' . $search . '%');
+    }
+
+    public function getImageURL()
+    {
+        if ($this->image) {
+            return url('storage/' . $this->image);
+        }
+        return null;
     }
 }

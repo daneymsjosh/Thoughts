@@ -22,7 +22,8 @@ class UpdateThoughtRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'content' => 'required|min:5|max:240'
+            'content' => 'required|min:5|max:240',
+            'image' => 'image'
         ];
     }
 }

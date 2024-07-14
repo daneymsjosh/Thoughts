@@ -27,13 +27,17 @@
     </div>
     <div class="card-body">
         @if ($editing ?? false)
-            <form action="{{ route('thoughts.update', $thought->id) }}" method="post">
+            <form enctype="multipart/form-data" action="{{ route('thoughts.update', $thought->id) }}" method="post">
                 @csrf
                 @method('put')
                 <div class="mb-3">
                     <textarea name="content" class="form-control" id="content" rows="3">{{ $thought->content }}</textarea>
                     @error('content')
                         <span class="d-block fs-6 text-danger mt-2">{{ $message }}</span>
+                    @enderror
+                    <input name="image" type="file" class="form-control">
+                    @error('image')
+                        <span class="text-danger fs-6">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="">
@@ -44,6 +48,8 @@
             <p class="fs-6 fw-light text-muted">
                 {{ $thought->content }}
             </p>
+            <img style="width: 75%" class="me-2 mb-3 img-fluid rounded" src="{{ $thought->getImageURL() }}"
+                alt="{{ $thought->image }}">
         @endif
         <div class="d-flex justify-content-between">
             @include('thoughts.shared.like-button')
