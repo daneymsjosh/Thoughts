@@ -84,7 +84,7 @@ Route::get('profile', [UserController::class, 'profile'])->name('profile')->midd
 
 Route::resource('users', UserController::class)->only(['edit', 'update'])->middleware(['auth']);
 
-Route::resource('users', UserController::class)->only(['show']);
+Route::resource('users', UserController::class)->only(['show'])->middleware(['auth']);
 
 // Follow
 Route::post('users/{user}/follow', [FollowerControlor::class, 'follow'])->middleware('auth')->name('users.follow');

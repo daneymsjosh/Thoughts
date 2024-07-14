@@ -13,7 +13,7 @@
             <div>
                 @auth
                     @can('update', $user)
-                        <a href="{{ route('users.edit', $user->id) }}">Edit</a>
+                        <a href="{{ route('users.edit', $user->id) }}">Edit Profile</a>
                     @endcan
                 @endauth
             </div>

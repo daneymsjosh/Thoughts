@@ -10,30 +10,11 @@
                 </div>
             </div>
             <div class="d-flex">
-                @if ($viewing ?? false)
-                @else
-                    <form action="{{ route('thoughts.show', $thought->id) }}" method="get">
-                        @csrf
-                        <button class="mx-1 btn btn-success btn-sm"><span class="fas fa-eye">
-                            </span></button>
-                    </form>
-                @endif
+                @include('thoughts.shared.buttons.view-button')
                 @auth
                     @can('update', $thought)
-                        @if ($editing ?? false)
-                        @else
-                            <form action="{{ route('thoughts.edit', $thought->id) }}" method="get">
-                                @csrf
-                                <button class="mx-1 btn btn-info btn-sm"><span class="fas fa-pen">
-                                    </span></button>
-                            </form>
-                        @endif
-                        <form action="{{ route('thoughts.destroy', $thought->id) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button class="ms-1 btn btn-danger btn-sm"><span class="fas fa-trash">
-                                </span></button>
-                        </form>
+                        @include('thoughts.shared.buttons.edit-button')
+                        @include('thoughts.shared.buttons.delete-button')
                     @endcan
                 @endauth
             </div>
@@ -62,8 +43,8 @@
             <p class="fs-6 fw-light text-muted">
                 {{ $thought->content }}
             </p>
-            <img style="width: 75%" class="me-2 mb-3 img-fluid rounded" src="{{ $thought->getImageURL() }}"
-                alt="{{ $thought->image }}">
+            <img style="width: 75%; border:1px solid #D2D2D2" class="me-2 mb-3 img-fluid rounded"
+                src="{{ $thought->getImageURL() }}" alt="{{ $thought->image }}">
         @endif
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex">

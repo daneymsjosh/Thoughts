@@ -17,7 +17,7 @@
                 <div>
                     @auth
                         @if (Auth::id() === $user->id)
-                            <a href="{{ route('users.show', $user->id) }}">View</a>
+                            <a href="{{ route('users.show', $user->id) }}">View Profile</a>
                         @endif
                     @endauth
                 </div>
