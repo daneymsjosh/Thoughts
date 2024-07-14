@@ -31,7 +31,7 @@ class BookmarkController extends Controller
 
         $owner->pins()->attach($thought);
 
-        return redirect()->route('dashboard', $thought->id)->with('success', 'Pinned Thought Successfuly!');
+        return redirect()->route('dashboard', $thought->id)->with('success', 'Added to Bookmarks!');
     }
 
     public function unpin(Thought $thought)
@@ -40,6 +40,6 @@ class BookmarkController extends Controller
 
         $owner->pins()->detach($thought);
 
-        return redirect()->route('dashboard', $thought->id)->with('success', 'Unpinned Thought Successfuly!');
+        return redirect()->route('dashboard', $thought->id)->with('success', 'Removed from Bookmarks!');
     }
 }
