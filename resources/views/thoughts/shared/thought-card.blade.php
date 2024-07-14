@@ -10,15 +10,29 @@
                 </div>
             </div>
             <div class="d-flex">
-                @include('thoughts.shared.bookmark-button')
-                <a href="{{ route('thoughts.show', $thought->id) }}"> View </a>
+                @if ($viewing ?? false)
+                @else
+                    <form action="{{ route('thoughts.show', $thought->id) }}" method="get">
+                        @csrf
+                        <button class="mx-1 btn btn-success btn-sm"><span class="fas fa-eye">
+                            </span></button>
+                    </form>
+                @endif
                 @auth
                     @can('update', $thought)
-                        <a class="mx-2" href="{{ route('thoughts.edit', $thought->id) }}"> Edit </a>
+                        @if ($editing ?? false)
+                        @else
+                            <form action="{{ route('thoughts.edit', $thought->id) }}" method="get">
+                                @csrf
+                                <button class="mx-1 btn btn-info btn-sm"><span class="fas fa-pen">
+                                    </span></button>
+                            </form>
+                        @endif
                         <form action="{{ route('thoughts.destroy', $thought->id) }}" method="post">
                             @csrf
                             @method('delete')
-                            <button class="ms-1 btn btn-danger btn-sm"> X </button>
+                            <button class="ms-1 btn btn-danger btn-sm"><span class="fas fa-trash">
+                                </span></button>
                         </form>
                     @endcan
                 @endauth
@@ -51,8 +65,13 @@
             <img style="width: 75%" class="me-2 mb-3 img-fluid rounded" src="{{ $thought->getImageURL() }}"
                 alt="{{ $thought->image }}">
         @endif
-        <div class="d-flex justify-content-between">
-            @include('thoughts.shared.like-button')
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex">
+                <div class="me-4">
+                    @include('thoughts.shared.like-button')
+                </div>
+                @include('thoughts.shared.bookmark-button')
+            </div>
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
                     {{ $thought->created_at->diffForHumans() }} </span>

@@ -12,7 +12,7 @@ class Thought extends Model
 
     protected $with = ['user', 'comments.user'];
 
-    protected $withCount = ['likes'];
+    protected $withCount = ['likes', 'pins'];
 
     protected $fillable = [
         'user_id',

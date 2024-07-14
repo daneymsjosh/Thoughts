@@ -66,7 +66,9 @@ class ThoughtController extends Controller
 
     public function show(Thought $thought)
     {
-        return view('thoughts.show', compact('thought'));
+        $viewing = true;
+
+        return view('thoughts.show', compact('thought', 'viewing'));
     }
 
     public function destroy(Thought $thought)
