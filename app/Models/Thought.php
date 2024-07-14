@@ -34,6 +34,11 @@ class Thought extends Model
         return $this->belongsToMany(User::class, 'like_thought')->withTimestamps();
     }
 
+    public function pins()
+    {
+        return $this->belongsToMany(User::class, 'pin_thought')->withTimestamps();
+    }
+
     public function scopeSearch(Builder $query, $search = '')
     {
         $query->where('content', 'like', '%' . $search . '%');

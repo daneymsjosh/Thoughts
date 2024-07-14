@@ -10,6 +10,7 @@
                 </div>
             </div>
             <div class="d-flex">
+                @include('thoughts.shared.bookmark-button')
                 <a href="{{ route('thoughts.show', $thought->id) }}"> View </a>
                 @auth
                     @can('update', $thought)

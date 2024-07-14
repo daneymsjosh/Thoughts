@@ -82,6 +82,16 @@ class User extends Authenticatable
         return $this->likes()->where('thought_id', $thought->id)->exists();
     }
 
+    public function pins()
+    {
+        return $this->belongsToMany(Thought::class, 'pin_thought', 'user_id', 'thought_id')->withTimestamps();
+    }
+
+    public function pinned(Thought $thought)
+    {
+        return $this->pins()->where('thought_id', $thought->id)->exists();
+    }
+
     public function getImageURL()
     {
         if ($this->image) {

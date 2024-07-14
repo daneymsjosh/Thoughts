@@ -12,6 +12,11 @@
                     <span>Feed</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ Route::is('bookmark') ? 'text-white bg-primary rounded' : '' }}"
+                    href="{{ route('bookmark') }}">
+                    <span>Bookmarks</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ Route::is('terms') ? 'text-white bg-primary rounded' : '' }}"
                     href="{{ route('terms') }}">
                     <span>Terms</span></a>

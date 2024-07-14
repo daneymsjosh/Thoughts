@@ -16,6 +16,8 @@ use App\Http\Controllers\ThoughtLikeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ThoughtController as AdminThoughtController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\PinThoughtController;
 
 // Grouped routes
 // Route::group(['prefix' => 'thoughts/', 'as' => 'thoughts.'], function () {
@@ -95,6 +97,15 @@ Route::post('thoughts/{thought}/like', [ThoughtLikeController::class, 'like'])->
 
 // Unlike
 Route::post('thoughts/{thought}/unlike', [ThoughtLikeController::class, 'unlike'])->middleware('auth')->name('thoughts.unlike');
+
+// Bookmark
+Route::get('/bookmark', BookmarkController::class)->middleware('auth')->name('bookmark');
+
+// Pin
+Route::post('thoughts/{thought}/pin', [BookmarkController::class, 'pin'])->middleware('auth')->name('thoughts.pin');
+
+// Unpin
+Route::post('thoughts/{thought}/unpin', [BookmarkController::class, 'unpin'])->middleware('auth')->name('thoughts.unpin');
 
 // Feed
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
