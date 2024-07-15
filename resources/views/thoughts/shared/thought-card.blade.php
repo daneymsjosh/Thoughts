@@ -49,9 +49,9 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex">
                 <div class="me-4">
-                    @include('thoughts.shared.like-button')
+                    @include('thoughts.shared.buttons.like-button')
                 </div>
-                @include('thoughts.shared.bookmark-button')
+                @include('thoughts.shared.buttons.bookmark-button')
             </div>
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
