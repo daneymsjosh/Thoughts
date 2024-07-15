@@ -12,17 +12,7 @@
             <div class="mt-3">
                 @include('users.shared.user-edit-card')
             </div>
-            <hr>
-            @forelse ($thoughts as $thought)
-                <div class="mt-3">
-                    @include('thoughts.shared.thought-card')
-                </div>
-            @empty
-                <p class="text-center mt-4">No Results Found.</p>
-            @endforelse
-            <div class="mt-3">
-                {{ $thoughts->withQueryString()->links() }}
-            </div>
+            @include('users.shared.user-tabs')
         </div>
         <div class="col-3">
             @include('shared.search-bar')

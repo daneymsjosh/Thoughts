@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Thought;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BookmarkController extends Controller
@@ -24,6 +25,7 @@ class BookmarkController extends Controller
             'thoughts' => $thoughts->paginate(5)
         ]);
     }
+
 
     public function pin(Thought $thought)
     {

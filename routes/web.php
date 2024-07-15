@@ -92,6 +92,9 @@ Route::post('users/{user}/follow', [FollowerControlor::class, 'follow'])->middle
 // Unfollow
 Route::post('users/{user}/unfollow', [FollowerControlor::class, 'unfollow'])->middleware('auth')->name('users.unfollow');
 
+// LikedThought
+Route::get('/like', ThoughtLikeController::class)->middleware('auth')->name('like');
+
 // Like
 Route::post('thoughts/{thought}/like', [ThoughtLikeController::class, 'like'])->middleware('auth')->name('thoughts.like');
 
