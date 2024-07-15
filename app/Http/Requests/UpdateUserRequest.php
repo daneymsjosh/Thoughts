@@ -24,7 +24,8 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:40',
             'bio' => 'nullable|min:3|max:255',
-            'image' => 'image'
+            'image' => 'image',
+            'is_admin' => 'boolean'
         ];
     }
 }

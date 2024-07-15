@@ -16,8 +16,7 @@ class UserController extends Controller
         $thoughts = $user->thoughts()->paginate(5);
 
         $likedIds = auth()->user()->likes()->pluck('id');
-        $likedThoughts = Thought::whereIn('id', $likedIds)->latest()->paginate(5);
-
+        $likedThoughts = Thought::likedThought(auth()->user())->paginate(5);
 
         return view('users.show', compact('user', 'thoughts', 'likedThoughts'));
     }
@@ -31,7 +30,7 @@ class UserController extends Controller
         $thoughts = $user->thoughts()->paginate(5);
 
         $likedIds = auth()->user()->likes()->pluck('id');
-        $likedThoughts = Thought::whereIn('id', $likedIds)->latest()->paginate(5);
+        $likedThoughts = Thought::likedThought(auth()->user())->paginate(5);
 
         return view('users.edit', compact('user', 'editing', 'thoughts', 'likedThoughts'));
     }
@@ -41,6 +40,8 @@ class UserController extends Controller
         Gate::authorize('update', $user);
 
         $validated = $request->validated();
+
+        $validated['is_admin'] = $request->has('is_admin');
 
         if ($request->has('image')) {
             if ($user->image) {

@@ -23,6 +23,13 @@
                 </div>
             </div>
             <div class="mt-4">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" name="is_admin" id="flexSwitchCheckDefault"
+                        value="1" {{ $user->is_admin ? 'checked' : '' }}>
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Admin</label>
+                </div>
+            </div>
+            <div class="mt-4">
                 <label for="">Profile Picture</label>
                 <input name="image" type="file" class="form-control">
                 @error('image')

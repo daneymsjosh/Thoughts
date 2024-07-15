@@ -17,7 +17,6 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ThoughtController as AdminThoughtController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\BookmarkController;
-use App\Http\Controllers\PinThoughtController;
 
 // Grouped routes
 // Route::group(['prefix' => 'thoughts/', 'as' => 'thoughts.'], function () {

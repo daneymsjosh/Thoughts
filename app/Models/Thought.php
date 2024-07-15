@@ -45,6 +45,12 @@ class Thought extends Model
         $query->where('content', 'like', '%' . $search . '%');
     }
 
+    public function scopeLikedThought(Builder $query, User $user)
+    {
+        $likedIds = $user->likes()->pluck('id');
+        $query->whereIn('id', $likedIds)->latest();
+    }
+
     public function getImageURL()
     {
         if ($this->image) {

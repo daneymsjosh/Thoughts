@@ -28,9 +28,9 @@
                             </td>
                             <td>{{ $thought->content }}</td>
                             <td>{{ $thought->created_at->toDateString() }}</td>
-                            <td>
-                                <a href="{{ route('thoughts.show', $thought->id) }}">View</a>
-                                <a href="{{ route('thoughts.edit', $thought->id) }}">Edit</a>
+                            <td class="d-flex">
+                                @include('thoughts.shared.buttons.view-button')
+                                @include('thoughts.shared.buttons.edit-button')
                             </td>
                         </tr>
                     @endforeach

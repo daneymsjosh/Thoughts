@@ -33,12 +33,8 @@
                             </td>
                             <td>{{ $comment->content }}</td>
                             <td>{{ $comment->created_at->toDateString() }}</td>
-                            <td>
-                                <form action="{{ route('admin.comments.destroy', $comment) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit">Delete</button>
-                                </form>
+                            <td class="d-flex">
+                                @include('admin.comments.buttons.delete-button')
                             </td>
                         </tr>
                     @endforeach
