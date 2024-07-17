@@ -2,8 +2,8 @@
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img style="width:50px" class="me-2 avatar-sm rounded-circle" src="{{ $thought->user->getImageURL() }}"
-                    alt="{{ $thought->user->name }}">
+                <img style="width:50px; height:50px; object-fit:cover;" class="me-2 avatar-sm rounded-circle"
+                    src="{{ $thought->user->getImageURL() }}" alt="{{ $thought->user->name }}">
                 <div>
                     <h5 class="card-title mb-0"><a href="{{ route('users.show', $thought->user->id) }}">
                             {{ $thought->user->name }} </a></h5>
@@ -46,8 +46,11 @@
             <p class="fs-6 fw-light text-muted">
                 {{ $thought->content }}
             </p>
-            <img style="width: 75%; border:1px solid #D2D2D2" class="me-2 mb-3 img-fluid rounded"
-                src="{{ $thought->getImageURL() }}" alt="{{ $thought->image }}">
+            @if ($thought->getImageURL())
+                <img style="width: 500px; height: 350px; object-fit: cover; border:1px solid #D2D2D2"
+                    class="me-2 mb-3 img-fluid rounded" src="{{ $thought->getImageURL() }}"
+                    alt="{{ $thought->image }}">
+            @endif
         @endif
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex">

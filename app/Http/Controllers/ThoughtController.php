@@ -78,7 +78,7 @@ class ThoughtController extends Controller
         // Delete content
         $thought->delete();
 
-        return redirect()->route('dashboard')->with('success', 'Thought Deleted Successfuly!');
+        return redirect()->back()->with('success', 'Thought Deleted Successfuly!');
     }
 
     public function feature(Thought $thought)

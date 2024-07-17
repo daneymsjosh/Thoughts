@@ -13,7 +13,7 @@ class FollowerControlor extends Controller
 
         $follower->followings()->attach($user);
 
-        return redirect()->route('users.show', $user->id)->with('success', 'Followed Successfully!');
+        return redirect()->back()->with('success', 'Followed Successfully!');
     }
 
     public function unfollow(User $user)
@@ -22,6 +22,6 @@ class FollowerControlor extends Controller
 
         $follower->followings()->detach($user);
 
-        return redirect()->route('users.show', $user->id)->with('success', 'Unfollowed Successfully!');
+        return redirect()->back()->with('success', 'Unfollowed Successfully!');
     }
 }

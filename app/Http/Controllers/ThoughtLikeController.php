@@ -28,7 +28,7 @@ class ThoughtLikeController extends Controller
 
         $liker->likes()->attach($thought);
 
-        return redirect()->route('dashboard', $thought->id)->with('success', 'Liked Successfully!');
+        return redirect()->back()->with('success', 'Liked Successfully!');
     }
 
     public function unlike(Thought $thought)
@@ -37,6 +37,6 @@ class ThoughtLikeController extends Controller
 
         $liker->likes()->detach($thought);
 
-        return redirect()->route('dashboard', $thought->id)->with('success', 'Unliked Successfully!');
+        return redirect()->back()->with('success', 'Unliked Successfully!');
     }
 }

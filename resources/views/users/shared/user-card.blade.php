@@ -2,8 +2,8 @@
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img style="width:150px" class="me-3 avatar-sm rounded-circle" src="{{ $user->getImageURL() }}"
-                    alt="{{ $user->name }}">
+                <img style="width:150px; height:150px; object-fit:cover" class="me-3 avatar-sm rounded-circle"
+                    src="{{ $user->getImageURL() }}" alt="{{ $user->name }}">
                 <div>
                     <h3 class="card-title mb-0"><a href="#"> {{ $user->name }}
                         </a></h3>

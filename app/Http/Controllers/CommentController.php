@@ -18,6 +18,6 @@ class CommentController extends Controller
 
         Comment::create($validated);
 
-        return redirect()->route('thoughts.show', $thought->id)->with('success', 'Commented Successfuly!');
+        return redirect()->back()->with('success', 'Commented Successfuly!');
     }
 }
