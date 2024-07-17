@@ -17,6 +17,7 @@ class Thought extends Model
     protected $fillable = [
         'user_id',
         'content',
+        'featured',
         'image'
     ];
 
@@ -43,6 +44,11 @@ class Thought extends Model
     public function scopeSearch(Builder $query, $search = '')
     {
         $query->where('content', 'like', '%' . $search . '%');
+    }
+
+    public function scopeFeatured(Builder $query, User $user)
+    {
+        $query->where('user_id', $user->id)->where('featured', true);
     }
 
     public function scopeLikedThought(Builder $query, User $user)

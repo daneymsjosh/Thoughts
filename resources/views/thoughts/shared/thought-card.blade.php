@@ -12,6 +12,9 @@
             <div class="d-flex">
                 @include('thoughts.shared.buttons.view-button')
                 @auth
+                    @can('feature', $thought)
+                        @include('thoughts.shared.buttons.feature-button')
+                    @endcan
                     @can('update', $thought)
                         @include('thoughts.shared.buttons.edit-button')
                         @include('thoughts.shared.buttons.delete-button')

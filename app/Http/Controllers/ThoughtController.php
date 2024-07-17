@@ -80,4 +80,20 @@ class ThoughtController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Thought Deleted Successfuly!');
     }
+
+    public function feature(Thought $thought)
+    {
+        Thought::featured(auth()->user())->update(['featured' => false]);
+
+        $thought->update(['featured' => true]);
+
+        return redirect()->back()->with('success', 'Thought Featured Successfuly!');
+    }
+
+    public function unfeature(Thought $thought)
+    {
+        $thought->update(['featured' => false]);
+
+        return redirect()->back()->with('success', 'Thought Unfeatured Successfuly!');
+    }
 }

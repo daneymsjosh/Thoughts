@@ -13,12 +13,14 @@ class UserController extends Controller
 {
     public function show(User $user)
     {
+        $featuredThought = $user->thoughts()->where('featured', true)->first();
+
         $thoughts = $user->thoughts()->paginate(5);
 
         $likedIds = auth()->user()->likes()->pluck('id');
         $likedThoughts = Thought::likedThought(auth()->user())->paginate(5);
 
-        return view('users.show', compact('user', 'thoughts', 'likedThoughts'));
+        return view('users.show', compact('user', 'thoughts', 'featuredThought', 'likedThoughts'));
     }
 
     public function edit(User $user)
@@ -27,12 +29,14 @@ class UserController extends Controller
 
         $editing = true;
 
+        $featuredThought = $user->thoughts()->where('featured', true)->first();
+
         $thoughts = $user->thoughts()->paginate(5);
 
         $likedIds = auth()->user()->likes()->pluck('id');
         $likedThoughts = Thought::likedThought(auth()->user())->paginate(5);
 
-        return view('users.edit', compact('user', 'editing', 'thoughts', 'likedThoughts'));
+        return view('users.edit', compact('user', 'editing', 'thoughts', 'featuredThought', 'likedThoughts'));
     }
 
     public function update(UpdateUserRequest $request, User $user)

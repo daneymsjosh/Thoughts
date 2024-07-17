@@ -13,7 +13,10 @@
             <hr>
             @forelse ($thoughts as $thought)
                 <div class="mt-3">
-                    @include('thoughts.shared.thought-card')
+                    @include('thoughts.shared.thought-card', [
+                        'thought' => $thought,
+                        'featuredThought' => $featuredThought,
+                    ])
                 </div>
             @empty
                 <p class="text-center mt-4">No Results Found.</p>

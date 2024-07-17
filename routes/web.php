@@ -109,6 +109,12 @@ Route::post('thoughts/{thought}/pin', [BookmarkController::class, 'pin'])->middl
 // Unpin
 Route::post('thoughts/{thought}/unpin', [BookmarkController::class, 'unpin'])->middleware('auth')->name('thoughts.unpin');
 
+// Feature
+Route::post('thoughts/{thought}/feature', [ThoughtController::class, 'feature'])->middleware('auth')->name('thoughts.feature');
+
+// Unfeature
+Route::post('thoughts/{thought}/unfeature', [ThoughtController::class, 'unfeature'])->middleware('auth')->name('thoughts.unfeature');
+
 // Feed
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
 

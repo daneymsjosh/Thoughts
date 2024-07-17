@@ -17,6 +17,12 @@ class ThoughtPolicy
         return ($user->is_admin || $user->is($thought->user));
     }
 
+    public function feature(User $user, Thought $thought): bool
+    {
+        // can feature thought
+        return ($user->is($thought->user));
+    }
+
     /**
      * Determine whether the user can delete the model.
      */
