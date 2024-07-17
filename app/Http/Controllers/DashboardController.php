@@ -13,6 +13,7 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+
         $thoughts = Thought::when($request->has('search'), function ($query) {
             $query->search(request('search', ''));
         })->orderBy('created_at', 'DESC')->paginate(5);

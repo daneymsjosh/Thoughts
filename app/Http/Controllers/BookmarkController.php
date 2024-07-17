@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Thought;
 use App\Models\User;
+use App\Models\Thought;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookmarkController extends Controller
 {
@@ -13,16 +14,21 @@ class BookmarkController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $user = Auth::user();
+
         $bookmarkIds = auth()->user()->pins()->pluck('id');
 
-        $thoughts = Thought::whereIn('id', $bookmarkIds)->latest();
+        $thoughts = Thought::whereIn('id', $bookmarkIds)->latest()->paginate(5);
+
+        $featuredThought = $user ? $user->thoughts()->where('featured', true)->first() : null;
 
         if ($request->has('search')) {
             $thoughts = $thoughts->search(request('search', ''));
         }
 
         return view('dashboard', [
-            'thoughts' => $thoughts->paginate(5)
+            'thoughts' => $thoughts,
+            'featuredThought' => $featuredThought
         ]);
     }
 
