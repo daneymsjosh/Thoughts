@@ -57,6 +57,11 @@ class Thought extends Model
         $query->whereIn('id', $likedIds)->latest();
     }
 
+    public function scopeMedia(Builder $query, User $user)
+    {
+        $query->where('user_id', $user->id)->latest()->whereNotNull('image');
+    }
+
     public function getImageURL()
     {
         if ($this->image) {

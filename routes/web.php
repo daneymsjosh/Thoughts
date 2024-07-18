@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ThoughtController as AdminThoughtController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\MessageController;
 
 // Grouped routes
 // Route::group(['prefix' => 'thoughts/', 'as' => 'thoughts.'], function () {
@@ -91,9 +92,6 @@ Route::post('users/{user}/follow', [FollowerControlor::class, 'follow'])->middle
 // Unfollow
 Route::post('users/{user}/unfollow', [FollowerControlor::class, 'unfollow'])->middleware('auth')->name('users.unfollow');
 
-// LikedThought
-Route::get('/like', ThoughtLikeController::class)->middleware('auth')->name('like');
-
 // Like
 Route::post('thoughts/{thought}/like', [ThoughtLikeController::class, 'like'])->middleware('auth')->name('thoughts.like');
 
@@ -117,6 +115,9 @@ Route::post('thoughts/{thought}/unfeature', [ThoughtController::class, 'unfeatur
 
 // Feed
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
+
+// Messages
+Route::get('/messages', [MessageController::class, 'index'])->middleware('auth')->name('messages');
 
 // Admin grouped routes
 Route::middleware(['auth', 'can:admin'])->prefix('admin/')->as('admin.')->group(function () {

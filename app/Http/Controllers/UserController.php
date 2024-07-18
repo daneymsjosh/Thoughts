@@ -20,7 +20,9 @@ class UserController extends Controller
         $likedIds = auth()->user()->likes()->pluck('id');
         $likedThoughts = Thought::likedThought(auth()->user())->paginate(5);
 
-        return view('users.show', compact('user', 'thoughts', 'featuredThought', 'likedThoughts'));
+        $medias = Thought::media(auth()->user())->get();
+
+        return view('users.show', compact('user', 'thoughts', 'featuredThought', 'likedThoughts', 'medias'));
     }
 
     public function edit(User $user)
@@ -36,7 +38,9 @@ class UserController extends Controller
         $likedIds = auth()->user()->likes()->pluck('id');
         $likedThoughts = Thought::likedThought(auth()->user())->paginate(5);
 
-        return view('users.edit', compact('user', 'editing', 'thoughts', 'featuredThought', 'likedThoughts'));
+        $medias = Thought::media(auth()->user())->get();
+
+        return view('users.edit', compact('user', 'editing', 'thoughts', 'featuredThought', 'likedThoughts', 'medias'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
