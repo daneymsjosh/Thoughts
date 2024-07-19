@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'bio',
         'image',
+        'cover',
         'email',
         'password',
         'is_admin'
@@ -97,6 +98,14 @@ class User extends Authenticatable
     {
         if ($this->image) {
             return url('storage/' . $this->image);
+        }
+        return "https://api.dicebear.com/6.x/fun-emoji/svg?seed={$this->name}";
+    }
+
+    public function getCoverImageURL()
+    {
+        if ($this->cover) {
+            return url('storage/' . $this->cover);
         }
         return "https://api.dicebear.com/6.x/fun-emoji/svg?seed={$this->name}";
     }

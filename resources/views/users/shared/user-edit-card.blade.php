@@ -1,25 +1,31 @@
 <div class="card">
-    <div class="px-3 pt-4 pb-2">
-        <form enctype="multipart/form-data" action="{{ route('users.update', $user->id) }}" method="post">
-            @csrf
-            @method('put')
+    <form enctype="multipart/form-data" action="{{ route('users.update', $user->id) }}" method="post">
+        @csrf
+        @method('put')
+        <div style="position: relative; height: 250px;">
+            <img src="{{ $user->getCoverImageURL() }}" alt="{{ $user->name }}" class="rounded-top"
+                style="width: 100%; height: 100%; object-fit: cover;">
+            <div style="position: absolute; bottom: -75px; left: 20px;">
+                <img src="{{ $user->getImageURL() }}" alt="{{ $user->name }}"
+                    style="width: 150px; height: 150px; object-fit: cover; border: 3px solid white; border-radius: 50%;">
+            </div>
+        </div>
+        <div class="px-3 pt-4 pb-2" style="position: relative; top: -10px">
+            @auth
+                @can('update', $user)
+                    <div style="text-align: right;">
+                        <a href="{{ route('users.show', $user->id) }}">View Profile</a>
+                    </div>
+                @endcan
+            @endauth
             <div class="d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <img style="width:150px; height:150px; object-fit:cover" class="me-3 avatar-sm rounded-circle"
-                        src="{{ $user->getImageURL() }}" alt="{{ $user->name }}">
+                <div class="d-flex align-items-center" style="margin-top: 60px;">
                     <div>
                         <input name="name" value="{{ $user->name }}" type="text" class="form-control">
                         @error('name')
                             <span class="text-danger fs-6">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
-                <div>
-                    @auth
-                        @if (Auth::id() === $user->id)
-                            <a href="{{ route('users.show', $user->id) }}">View Profile</a>
-                        @endif
-                    @endauth
                 </div>
             </div>
             <div class="mt-4">
@@ -28,6 +34,13 @@
                         value="1" {{ $user->is_admin ? 'checked' : '' }}>
                     <label class="form-check-label" for="flexSwitchCheckDefault">Admin</label>
                 </div>
+            </div>
+            <div class="mt-4">
+                <label for="">Cover Photo</label>
+                <input name="cover" type="file" class="form-control">
+                @error('cover')
+                    <span class="text-danger fs-6">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mt-4">
                 <label for="">Profile Picture</label>
@@ -48,6 +61,6 @@
                 <button class="btn btn-dark btn-sm mb-3">Save</button>
                 @include('users.shared.user-stats')
             </div>
-        </form>
-    </div>
+    </form>
+</div>
 </div>

@@ -60,6 +60,15 @@ class UserController extends Controller
             $validated['image'] = $imagePath;
         }
 
+        if ($request->has('cover')) {
+            if ($user->cover) {
+                Storage::disk('public')->delete($user->cover);
+            }
+
+            $coverPath = $request->file('cover')->store('cover', 'public');
+            $validated['cover'] = $coverPath;
+        }
+
         $user->update($validated);
 
         return redirect()->route('profile');

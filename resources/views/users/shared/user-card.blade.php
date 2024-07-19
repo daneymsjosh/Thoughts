@@ -1,9 +1,22 @@
 <div class="card">
-    <div class="px-3 pt-4 pb-2">
+    <div style="position: relative; height: 250px;">
+        <img src="{{ $user->getCoverImageURL() }}" alt="{{ $user->name }}" class="rounded-top"
+            style="width: 100%; height: 100%; object-fit: cover;">
+        <div style="position: absolute; bottom: -75px; left: 20px;">
+            <img src="{{ $user->getImageURL() }}" alt="{{ $user->name }}"
+                style="width: 150px; height: 150px; object-fit: cover; border: 3px solid white; border-radius: 50%;">
+        </div>
+    </div>
+    <div class="px-3 pt-4 pb-2" style="position: relative; top: -10px">
+        @auth
+            @can('update', $user)
+                <div style="text-align: right;">
+                    <a href="{{ route('users.edit', $user->id) }}">Edit Profile</a>
+                </div>
+            @endcan
+        @endauth
         <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center">
-                <img style="width:150px; height:150px; object-fit:cover" class="me-3 avatar-sm rounded-circle"
-                    src="{{ $user->getImageURL() }}" alt="{{ $user->name }}">
+            <div class="d-flex align-items-center" style="margin-top: 60px;">
                 <div>
                     <h3 class="card-title mb-0"><a href="#"> {{ $user->name }}
                         </a></h3>
@@ -11,11 +24,6 @@
                 </div>
             </div>
             <div>
-                @auth
-                    @can('update', $user)
-                        <a href="{{ route('users.edit', $user->id) }}">Edit Profile</a>
-                    @endcan
-                @endauth
             </div>
         </div>
         <div class="px-2 mt-4">
