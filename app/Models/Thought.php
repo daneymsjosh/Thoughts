@@ -53,8 +53,19 @@ class Thought extends Model
 
     public function scopeLikedThought(Builder $query, User $user)
     {
-        $likedIds = $user->likes()->pluck('id');
-        $query->whereIn('id', $likedIds)->latest();
+        $likes = $user->likes()->withPivot('updated_at')->orderByPivot('updated_at', 'desc')->get(['thoughts.id', 'like_thought.updated_at']);
+        $likedIds = $likes->pluck('id')->toArray();
+        $query->whereIn('id', $likedIds)->orderByRaw("FIELD(id, " . implode(',', $likedIds) . ")");
+    }
+
+    public function scopeBookmarkedThought(Builder $query, User $user)
+    {
+        // Order the pins by the updated_at column in the pivot table in descending order
+        $bookmarks = $user->pins()->withPivot('updated_at')->orderByPivot('updated_at', 'desc')->get(['thoughts.id', 'pin_thought.updated_at']);
+        // Extract the thought IDs in the ordered sequence and converts it to an array
+        $bookmarkIds = $bookmarks->pluck('id')->toArray();
+        // Retrieve the thoughts using the ordered bookmark IDs
+        $query->whereIn('id', $bookmarkIds)->orderByRaw("FIELD(id, " . implode(',', $bookmarkIds) . ")");
     }
 
     public function scopeMedia(Builder $query, User $user)

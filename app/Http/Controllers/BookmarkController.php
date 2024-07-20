@@ -16,9 +16,7 @@ class BookmarkController extends Controller
     {
         $user = Auth::user();
 
-        $bookmarkIds = auth()->user()->pins()->pluck('id');
-
-        $thoughts = Thought::whereIn('id', $bookmarkIds)->latest()->paginate(5);
+        $thoughts = Thought::bookmarkedThought($user)->paginate(5);
 
         $featuredThought = $user ? $user->thoughts()->where('featured', true)->first() : null;
 

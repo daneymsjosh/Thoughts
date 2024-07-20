@@ -17,7 +17,6 @@ class UserController extends Controller
 
         $thoughts = $user->thoughts()->paginate(5);
 
-        $likedIds = auth()->user()->likes()->pluck('id');
         $likedThoughts = Thought::likedThought(auth()->user())->paginate(5);
 
         $medias = Thought::media(auth()->user())->get();
