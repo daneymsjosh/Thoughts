@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         // Uses bootstrap 5 to paginate
         Paginator::useBootstrapFive();
 
-        $topUsers = Cache::remember('topUsers', now()->addMinutes(5), function () {
+        $topUsers = Cache::remember('topUsers', now()->addMinute(), function () {
             return User::withCount('thoughts')->orderBy('thoughts_count', 'DESC')->limit(5)->get();
         });
 

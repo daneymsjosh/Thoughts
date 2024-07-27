@@ -6,11 +6,11 @@
                     href="{{ route('dashboard') }}">
                     <span>Home</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Route::is('messages') ? 'text-white bg-primary rounded' : '' }}"
-                    href="{{ route('messages') }}">
+            {{-- <li class="nav-item">
+                <a class="nav-link {{ Route::is('messages.index') ? 'text-white bg-primary rounded' : '' }}"
+                    href="{{ route('messages.index') }}">
                     <span>Messages</span></a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a class="nav-link {{ Route::is('feed') ? 'text-white bg-primary rounded' : '' }}"
                     href="{{ route('feed') }}">
@@ -21,11 +21,11 @@
                     href="{{ route('bookmark') }}">
                     <span>Bookmarks</span></a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link {{ Route::is('terms') ? 'text-white bg-primary rounded' : '' }}"
                     href="{{ route('terms') }}">
                     <span>Terms</span></a>
-            </li>
+            </li> --}}
         </ul>
     </div>
     <div class="card-footer text-center py-2">

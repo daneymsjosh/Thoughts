@@ -48,9 +48,9 @@ Route::get('lang/{lang}', function ($lang) {
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 // Terms
-Route::get('/terms', function () {
-    return view('terms');
-})->name('terms');
+// Route::get('/terms', function () {
+//     return view('terms');
+// })->name('terms');
 
 // Thoughts
 // These resource creates the routes for the 7 common routes except index create and show with the middleware auth
@@ -117,7 +117,15 @@ Route::post('thoughts/{thought}/unfeature', [ThoughtController::class, 'unfeatur
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
 
 // Messages
-Route::get('/messages', [MessageController::class, 'index'])->middleware('auth')->name('messages');
+// Route::middleware('auth')->prefix('/messages')->as('messages.')->group(function () {
+//     Route::get('', [MessageController::class, 'index'])->name('index');
+
+//     Route::get('/{conversation}', [MessageController::class, 'show'])->name('show');
+
+//     Route::post('/{conversation}', [MessageController::class, 'store'])->name('store');
+// });
+
+
 
 // Admin grouped routes
 Route::middleware(['auth', 'can:admin'])->prefix('admin/')->as('admin.')->group(function () {

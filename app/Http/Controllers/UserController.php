@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Thought;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateUserRequest;
 
@@ -51,21 +52,19 @@ class UserController extends Controller
         $validated['is_admin'] = $request->has('is_admin');
 
         if ($request->has('image')) {
-            if ($user->image) {
-                Storage::disk('public')->delete($user->image);
-            }
-
             $imagePath = $request->file('image')->store('profile', 'public');
             $validated['image'] = $imagePath;
+
+            Storage::disk('public')->delete($user->image ?? '');
         }
 
-        if ($request->has('cover')) {
-            if ($user->cover) {
-                Storage::disk('public')->delete($user->cover);
-            }
+        Cache::forget('topUsers');
 
+        if ($request->has('cover')) {
             $coverPath = $request->file('cover')->store('cover', 'public');
             $validated['cover'] = $coverPath;
+
+            Storage::disk('public')->delete($user->cover ?? '');
         }
 
         $user->update($validated);
