@@ -6,11 +6,11 @@
                     href="{{ route('dashboard') }}">
                     <span>Home</span></a>
             </li>
-            {{-- <li class="nav-item">
-                <a class="nav-link {{ Route::is('messages.index') ? 'text-white bg-primary rounded' : '' }}"
-                    href="{{ route('messages.index') }}">
-                    <span>Messages</span></a>
-            </li> --}}
+            <li class="nav-item">
+                <a class="nav-link {{ Route::is('conversations.index') ? 'text-white bg-primary rounded' : '' }}"
+                    href="{{ route('conversations.index') }}">
+                    <span>Conversations</span></a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link {{ Route::is('feed') ? 'text-white bg-primary rounded' : '' }}"
                     href="{{ route('feed') }}">

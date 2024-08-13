@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ThoughtController as AdminThoughtController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\MessageController;
 
 // Grouped routes
@@ -117,14 +118,17 @@ Route::post('thoughts/{thought}/unfeature', [ThoughtController::class, 'unfeatur
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
 
 // Messages
-// Route::middleware('auth')->prefix('/messages')->as('messages.')->group(function () {
-//     Route::get('', [MessageController::class, 'index'])->name('index');
+Route::middleware('auth')->prefix('/messages')->as('messages.')->group(function () {
+    Route::post('/{conversation}', [MessageController::class, 'store'])->name('store');
+});
 
-//     Route::get('/{conversation}', [MessageController::class, 'show'])->name('show');
+Route::middleware('auth')->prefix('/conversations')->as('conversations.')->group(function () {
+    Route::get('', [ConversationController::class, 'index'])->name('index');
 
-//     Route::post('/{conversation}', [MessageController::class, 'store'])->name('store');
-// });
+    Route::get('/user/{user}', [ConversationController::class, 'create'])->name('create');
 
+    Route::get('/{conversation}', [ConversationController::class, 'show'])->name('show');
+});
 
 
 // Admin grouped routes
