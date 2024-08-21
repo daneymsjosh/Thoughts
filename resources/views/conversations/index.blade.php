@@ -70,85 +70,65 @@
                     </div>
                 </div>
                 <div class="mt-3">
-                    @if (isset($followings))
-                        @forelse ($followings as $following)
+                    @forelse ($conversations as $conversation)
+                        @if ($conversation->user_id1 === Auth::id())
                             <div class="card">
                                 <div class="card-body">
                                     <div class="hstack gap-2">
                                         <div>
-                                            <a href="{{ route('conversations.create', $following->id) }}">
+                                            <a href="{{ route('conversations.show', $conversation->id) }}">
                                                 <img style="width:60px; height:60px; object-fit:cover;"
-                                                    class="avatar-img rounded-circle" src="{{ $following->getImageUrl() }}"
-                                                    alt="{{ $following->name }}">
+                                                    class="avatar-img rounded-circle"
+                                                    src="{{ $conversation->user2->getImageUrl() }}"
+                                                    alt="{{ $conversation->user2->name }}">
                                             </a>
                                         </div>
                                         <div class="overflow-hidden">
                                             <a class="h6 mb-0"
-                                                href="{{ route('conversations.create', $following->id) }}">{{ $following->name }}</a>
+                                                href="{{ route('conversations.show', $conversation->id) }}">{{ $conversation->user2->name }}
+                                            </a>
+                                            <p class="mb-0 small text-truncate"
+                                                style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: calc(1em * 2); line-height: 1em; text-decoration: none">
+                                                {{ $conversation->lastMessage ? $conversation->lastMessage->sender->name : '' }}:
+                                                {{ $conversation->lastMessage ? $conversation->lastMessage->message : '' }}
+                                            </p>
                                             <p class="mb-0 small text-truncate">
-                                                {{ $following->created_at->format('F d, Y') }}</p>
+                                                {{ $conversation->created_at->format('F d, Y') }}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        @empty
-                            <p>No Followings</p>
-                        @endforelse
-                    @else
-                        @forelse ($conversations as $conversation)
-                            @if ($conversation->user_id1 === Auth::id())
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="hstack gap-2">
-                                            <div>
-                                                <a href="{{ route('conversations.show', $conversation->id) }}">
-                                                    <img style="width:60px; height:60px; object-fit:cover;"
-                                                        class="avatar-img rounded-circle"
-                                                        src="{{ $conversation->user2->getImageUrl() }}"
-                                                        alt="{{ $conversation->user2->name }}">
-                                                </a>
-                                            </div>
-                                            <div class="overflow-hidden">
-                                                <a class="h6 mb-0"
-                                                    style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: calc(1.5em * 2); line-height: 1.5em; text-decoration: none"
-                                                    href="{{ route('conversations.show', $conversation->id) }}">{{ $conversation->user2->name }}:
-                                                    {{ $conversation->lastMessage ? $conversation->lastMessage->message : '' }}
-                                                </a>
-                                                <p class="mb-0 small text-truncate">
-                                                    {{ $conversation->created_at->format('F d, Y') }}</p>
-                                            </div>
+                        @else
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="hstack gap-2">
+                                        <div>
+                                            <a href="{{ route('conversations.show', $conversation->id) }}">
+                                                <img style="width:60px; height:60px; object-fit:cover;"
+                                                    class="avatar-img rounded-circle"
+                                                    src="{{ $conversation->user1->getImageUrl() }}"
+                                                    alt="{{ $conversation->user1->name }}">
+                                            </a>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <a class="h6 mb-0"
+                                                href="{{ route('conversations.show', $conversation->id) }}">{{ $conversation->user1->name }}
+                                            </a>
+                                            <p class="mb-0 small text-truncate"
+                                                style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: calc(1em * 2); line-height: 1em; text-decoration: none">
+                                                {{ $conversation->lastMessage ? $conversation->lastMessage->sender->name : '' }}:
+                                                {{ $conversation->lastMessage ? $conversation->lastMessage->message : '' }}
+                                            </p>
+                                            <p class="mb-0 small text-truncate">
+                                                {{ $conversation->created_at->format('F d, Y') }}</p>
                                         </div>
                                     </div>
                                 </div>
-                            @else
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="hstack gap-2">
-                                            <div>
-                                                <a href="{{ route('conversations.show', $conversation->id) }}">
-                                                    <img style="width:60px; height:60px; object-fit:cover;"
-                                                        class="avatar-img rounded-circle"
-                                                        src="{{ $conversation->user1->getImageUrl() }}"
-                                                        alt="{{ $conversation->user1->name }}">
-                                                </a>
-                                            </div>
-                                            <div class="overflow-hidden">
-                                                <a class="h6 mb-0"
-                                                    style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: calc(1.5em * 2); line-height: 1.5em; text-decoration: none"
-                                                    href="{{ route('conversations.show', $conversation->id) }}">{{ $conversation->user1->name }}:
-                                                    {{ $conversation->lastMessage ? $conversation->lastMessage->message : '' }}
-                                                </a>
-                                                <p class="mb-0 small text-truncate">
-                                                    {{ $conversation->created_at->format('F d, Y') }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @empty
-                            <p>No Conversations</p>
-                        @endforelse
-                    @endif
+                            </div>
+                        @endif
+                    @empty
+                        <p class="text-center">No Conversations</p>
+                    @endforelse
                 </div>
             </div>
         </div>
