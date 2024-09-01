@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationController;
 
 // Grouped routes
 // Route::group(['prefix' => 'thoughts/', 'as' => 'thoughts.'], function () {
@@ -116,6 +117,11 @@ Route::post('thoughts/{thought}/unfeature', [ThoughtController::class, 'unfeatur
 
 // Feed
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
+
+// Notifications
+Route::middleware('auth')->prefix('/notifications')->as('notifications.')->group(function () {
+    Route::get('', [NotificationController::class, 'index'])->name('index');
+});
 
 // Messages
 Route::middleware('auth')->prefix('/messages')->as('messages.')->group(function () {

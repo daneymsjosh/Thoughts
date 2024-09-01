@@ -1,6 +1,6 @@
 @extends('layout.base')
 
-@section('title', 'Messages')
+@section('title', 'Conversations')
 
 @section('content')
     <div class="row">

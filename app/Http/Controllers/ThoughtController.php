@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreThoughtRequest;
-use App\Http\Requests\UpdateThoughtRequest;
-use App\Models\Thought;
 use App\Models\User;
+use App\Models\Thought;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreThoughtRequest;
+use App\Http\Requests\UpdateThoughtRequest;
 
 class ThoughtController extends Controller
 {
@@ -66,9 +67,13 @@ class ThoughtController extends Controller
 
     public function show(Thought $thought)
     {
+        $user = Auth::user();
+
         $viewing = true;
 
-        return view('thoughts.show', compact('thought', 'viewing'));
+        $featuredThought = $user ? $user->thoughts()->where('featured', true)->first() : null;
+
+        return view('thoughts.show', compact('thought', 'viewing', 'featuredThought'));
     }
 
     public function destroy(Thought $thought)

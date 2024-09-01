@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Message;
 use App\Models\Conversation;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,11 @@ class MessageController extends Controller
 
         // Update the conversation with the last message
         $conversation->update(['last_message_id' => $conversation->messages()->latest()->first()->id]);
+
+        Notification::createNotification($validated['receiver_id'], 'message', [
+            'sent_by' => Auth::user()->name,
+            'conversation_id' => $conversation->id,
+        ]);
 
         return redirect()->route('conversations.show', $conversation->id);
     }

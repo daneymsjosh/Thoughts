@@ -7,6 +7,11 @@
                     <span>Home</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ Route::is('notifications.index') ? 'text-white bg-primary rounded' : '' }}"
+                    href="{{ route('notifications.index') }}">
+                    <span>Notifications</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ Route::is('conversations.index') ? 'text-white bg-primary rounded' : '' }}"
                     href="{{ route('conversations.index') }}">
                     <span>Conversations</span></a>

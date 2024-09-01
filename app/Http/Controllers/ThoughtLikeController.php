@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Thought;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ThoughtLikeController extends Controller
 {
@@ -28,6 +30,11 @@ class ThoughtLikeController extends Controller
 
         $liker->likes()->attach($thought);
 
+        Notification::createNotification($thought->user_id, 'like', [
+            'liked_by' => $liker->name,
+            'post_id' => $thought->id,
+        ]);
+
         return redirect()->back()->with('success', 'Liked Successfully!');
     }
 
@@ -36,6 +43,11 @@ class ThoughtLikeController extends Controller
         $liker = auth()->user();
 
         $liker->likes()->detach($thought);
+
+        Notification::createNotification($thought->user_id, 'unlike', [
+            'unliked_by' => $liker->name,
+            'post_id' => $thought->id,
+        ]);
 
         return redirect()->back()->with('success', 'Unliked Successfully!');
     }
