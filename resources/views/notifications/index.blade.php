@@ -15,21 +15,12 @@
                     @php
                         $notificationData = json_decode($notification->data);
                         $notificationType = $notification->type;
-                        $url = '';
-
-                        // Determine the correct URL based on notification type
-                        if (in_array($notificationType, ['like', 'comment'])) {
-                            $url = route('thoughts.show', $notificationData->post_id);
-                        } elseif (in_array($notificationType, ['follow', 'unfollow'])) {
-                            $url = route('users.show', $notificationData->user_id);
-                        } elseif ($notificationType === 'message') {
-                            $url = route('conversations.show', $notificationData->conversation_id);
-                        }
+                        $url = route('notifications.markAsRead', $notification->id);
                     @endphp
 
                     <a href="{{ $url }}" class="text-decoration-none text-dark">
                         <div class="notification-item p-3 mb-2 rounded"
-                            style="background-color: #f8f9fa; border: 1px solid #e3e6ea;">
+                            style="background-color: {{ $notification->is_read ? '#f8f9fa' : '#e9ecef' }}; border: 1px solid #e3e6ea;">
                             <div class="d-flex justify-content-between align-items-center">
                                 @switch($notificationType)
                                     @case('like')

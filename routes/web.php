@@ -119,8 +119,10 @@ Route::post('thoughts/{thought}/unfeature', [ThoughtController::class, 'unfeatur
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
 
 // Notifications
-Route::middleware('auth')->prefix('/notifications')->as('notifications.')->group(function () {
-    Route::get('', [NotificationController::class, 'index'])->name('index');
+Route::middleware('auth')->controller(NotificationController::class,)->prefix('/notifications')->as('notifications.')->group(function () {
+    Route::get('', 'index')->name('index');
+
+    Route::get('/{notification}/mark-as-read', 'markAsRead')->name('markAsRead');
 });
 
 // Messages
